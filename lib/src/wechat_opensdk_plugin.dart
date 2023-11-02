@@ -12,4 +12,17 @@ class WeChatOpenSdkPlugin {
   WeChatOpenSdkPlugin._() {
     WxSdkOnRespApi.setup(_sdkResp);
   }
+
+  Future<bool> registerApp(
+          {required String appId,
+          required String urlSchema,
+          required String universalLink}) =>
+      api.registerApp(appId, urlSchema, universalLink);
+
+  Future<bool> isWxInstalled() => api.isWxInstalled();
+
+  Future<bool> shareWebPage({required WxShareWebPage req}) =>
+      api.shareWebPage(req);
+
+  Future<bool> shareImage({required WxShareImage req}) => api.shareImage(req);
 }
