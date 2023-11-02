@@ -60,6 +60,7 @@
             completion([NSNumber numberWithBool:ret],nil);
         }
     }
+    self.urlSchema = urlSchema;
 }
 
 - (void)shareWebPageReq:(WxShareWebPage *)req 
