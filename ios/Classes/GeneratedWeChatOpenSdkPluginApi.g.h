@@ -45,13 +45,11 @@ typedef NS_ENUM(NSUInteger, WxSceneType) {
 + (instancetype)makeWithErrCode:(NSNumber *)errCode
     type:(NSNumber *)type
     country:(nullable NSString *)country
-    description:(nullable NSString *)description
     lang:(nullable NSString *)lang
     errorDescription:(nullable NSString *)errorDescription;
 @property(nonatomic, strong) NSNumber * errCode;
 @property(nonatomic, strong) NSNumber * type;
 @property(nonatomic, copy, nullable) NSString * country;
-@property(nonatomic, copy, nullable) NSString * description;
 @property(nonatomic, copy, nullable) NSString * lang;
 @property(nonatomic, copy, nullable) NSString * errorDescription;
 @end

@@ -100,14 +100,12 @@ static id GetNullableObjectAtIndex(NSArray *array, NSInteger key) {
 + (instancetype)makeWithErrCode:(NSNumber *)errCode
     type:(NSNumber *)type
     country:(nullable NSString *)country
-    description:(nullable NSString *)description
     lang:(nullable NSString *)lang
     errorDescription:(nullable NSString *)errorDescription {
   WxSdkOnResp* pigeonResult = [[WxSdkOnResp alloc] init];
   pigeonResult.errCode = errCode;
   pigeonResult.type = type;
   pigeonResult.country = country;
-  pigeonResult.description = description;
   pigeonResult.lang = lang;
   pigeonResult.errorDescription = errorDescription;
   return pigeonResult;
@@ -119,9 +117,8 @@ static id GetNullableObjectAtIndex(NSArray *array, NSInteger key) {
   pigeonResult.type = GetNullableObjectAtIndex(list, 1);
   NSAssert(pigeonResult.type != nil, @"");
   pigeonResult.country = GetNullableObjectAtIndex(list, 2);
-  pigeonResult.description = GetNullableObjectAtIndex(list, 3);
-  pigeonResult.lang = GetNullableObjectAtIndex(list, 4);
-  pigeonResult.errorDescription = GetNullableObjectAtIndex(list, 5);
+  pigeonResult.lang = GetNullableObjectAtIndex(list, 3);
+  pigeonResult.errorDescription = GetNullableObjectAtIndex(list, 4);
   return pigeonResult;
 }
 + (nullable WxSdkOnResp *)nullableFromList:(NSArray *)list {
@@ -132,7 +129,6 @@ static id GetNullableObjectAtIndex(NSArray *array, NSInteger key) {
     (self.errCode ?: [NSNull null]),
     (self.type ?: [NSNull null]),
     (self.country ?: [NSNull null]),
-    (self.description ?: [NSNull null]),
     (self.lang ?: [NSNull null]),
     (self.errorDescription ?: [NSNull null]),
   ];

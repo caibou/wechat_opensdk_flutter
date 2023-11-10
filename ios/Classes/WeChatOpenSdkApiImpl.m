@@ -54,13 +54,27 @@
         return;
     }
     
+    self.appID = appId;
+    self.urlSchema = urlSchema;
+    
     if (appId && urlSchema && universalLink) {
+
        BOOL ret = [WXApi registerApp:appId universalLink:universalLink];
         if (completion) {
             completion([NSNumber numberWithBool:ret],nil);
         }
+        
+        [WXApi startLogByLevel:WXLogLevelDetail logBlock:^(NSString * _Nonnull log) {
+            if (log) {
+                NSLog(@"WeChatSDK: %@", log);
+            }
+        }];
+        
+        [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
+            NSLog(@"checkUniversalLinkReady: %@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
+        }];
     }
-    self.urlSchema = urlSchema;
+
 }
 
 - (void)shareWebPageReq:(WxShareWebPage *)req 
@@ -192,7 +206,6 @@
         WxSdkOnResp *onResp = [WxSdkOnResp makeWithErrCode:@(wxResp.errCode)
                                                       type:@(wxResp.type)
                                                    country:wxResp.country == nil ? @"" : wxResp.country
-                                               description:wxResp.description == nil ? @"" : wxResp.description
                                                       lang:wxResp.lang == nil ? @"" : wxResp.lang
                                           errorDescription:wxResp.errStr == nil ? @"" : wxResp.errStr];
         
@@ -201,6 +214,23 @@
 }
 
 #pragma mark -FlutterApplicationLifeCycleDelegate
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if (self.urlSchema && [[url scheme] isEqualToString: self.urlSchema]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application 
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    if (self.urlSchema && [[url scheme] isEqualToString: self.urlSchema]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    return YES;
+}
+
 - (BOOL)application:(UIApplication*)application
             openURL:(NSURL*)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id>*)options {

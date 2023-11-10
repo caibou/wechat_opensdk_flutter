@@ -54,7 +54,6 @@ class WxSdkOnResp {
     required this.errCode,
     required this.type,
     this.country,
-    this.description,
     this.lang,
     this.errorDescription,
   });
@@ -65,8 +64,6 @@ class WxSdkOnResp {
 
   String? country;
 
-  String? description;
-
   String? lang;
 
   String? errorDescription;
@@ -76,7 +73,6 @@ class WxSdkOnResp {
       errCode,
       type,
       country,
-      description,
       lang,
       errorDescription,
     ];
@@ -88,9 +84,8 @@ class WxSdkOnResp {
       errCode: result[0]! as int,
       type: result[1]! as int,
       country: result[2] as String?,
-      description: result[3] as String?,
-      lang: result[4] as String?,
-      errorDescription: result[5] as String?,
+      lang: result[3] as String?,
+      errorDescription: result[4] as String?,
     );
   }
 }

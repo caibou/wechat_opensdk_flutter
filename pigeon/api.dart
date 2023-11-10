@@ -25,7 +25,6 @@ class WxSdkOnResp {
   int errCode;
   int type;
   String? country;
-  String? description;
   String? lang;
   String? errorDescription;
   WxSdkOnResp({required this.errCode, required this.type});

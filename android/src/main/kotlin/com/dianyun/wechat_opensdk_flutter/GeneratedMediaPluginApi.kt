@@ -86,7 +86,6 @@ data class WxSdkOnResp (
   val errCode: Long,
   val type: Long,
   val country: String? = null,
-  val description: String? = null,
   val lang: String? = null,
   val errorDescription: String? = null
 
@@ -97,10 +96,9 @@ data class WxSdkOnResp (
       val errCode = list[0].let { if (it is Int) it.toLong() else it as Long }
       val type = list[1].let { if (it is Int) it.toLong() else it as Long }
       val country = list[2] as String?
-      val description = list[3] as String?
-      val lang = list[4] as String?
-      val errorDescription = list[5] as String?
-      return WxSdkOnResp(errCode, type, country, description, lang, errorDescription)
+      val lang = list[3] as String?
+      val errorDescription = list[4] as String?
+      return WxSdkOnResp(errCode, type, country, lang, errorDescription)
     }
   }
   fun toList(): List<Any?> {
@@ -108,7 +106,6 @@ data class WxSdkOnResp (
       errCode,
       type,
       country,
-      description,
       lang,
       errorDescription,
     )
