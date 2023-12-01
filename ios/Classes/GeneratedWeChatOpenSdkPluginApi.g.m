@@ -322,6 +322,23 @@ void WeChatOpenSdkApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<
       [channel setMessageHandler:nil];
     }
   }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.wechat_opensdk_flutter.WeChatOpenSdkApi.weChatAuth"
+        binaryMessenger:binaryMessenger
+        codec:WeChatOpenSdkApiGetCodec()];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(weChatAuthWithCompletion:)], @"WeChatOpenSdkApi api (%@) doesn't respond to @selector(weChatAuthWithCompletion:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        [api weChatAuthWithCompletion:^(NSString *_Nullable output, FlutterError *_Nullable error) {
+          callback(wrapResult(output, error));
+        }];
+      }];
+    } else {
+      [channel setMessageHandler:nil];
+    }
+  }
 }
 @interface WxSdkOnRespApiCodecReader : FlutterStandardReader
 @end

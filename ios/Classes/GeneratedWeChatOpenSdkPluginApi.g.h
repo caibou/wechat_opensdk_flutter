@@ -80,6 +80,7 @@ NSObject<FlutterMessageCodec> *WeChatOpenSdkApiGetCodec(void);
 - (void)isWxInstalledWithCompletion:(void (^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
 - (void)shareWebPageReq:(WxShareWebPage *)req completion:(void (^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
 - (void)shareImageReq:(WxShareImage *)req completion:(void (^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
+- (void)weChatAuthWithCompletion:(void (^)(NSString *_Nullable, FlutterError *_Nullable))completion;
 @end
 
 extern void WeChatOpenSdkApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<WeChatOpenSdkApi> *_Nullable api);

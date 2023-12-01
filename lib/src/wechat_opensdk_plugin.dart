@@ -1,4 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:wechat_opensdk_flutter/src/wechat_opensdk_api.g.dart';
+import 'package:wechat_opensdk_flutter/src/wechat_opensdk_exceptions.dart';
 import 'package:wechat_opensdk_flutter/src/wechat_opensdk_resp_callback.dart';
 
 class WeChatOpenSdkPlugin {
@@ -25,4 +27,8 @@ class WeChatOpenSdkPlugin {
       api.shareWebPage(req);
 
   Future<bool> shareImage({required WxShareImage req}) => api.shareImage(req);
+
+  Future<String> weChatAuth() => api.weChatAuth().onError((error, stackTrace) =>
+      throw SignInWithWeChatException.fromPlatformException(
+          error as PlatformException));
 }

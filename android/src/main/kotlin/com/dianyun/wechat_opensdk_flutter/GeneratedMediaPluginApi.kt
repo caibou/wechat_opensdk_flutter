@@ -203,6 +203,7 @@ interface WeChatOpenSdkApi {
   fun isWxInstalled(callback: (Result<Boolean>) -> Unit)
   fun shareWebPage(req: WxShareWebPage, callback: (Result<Boolean>) -> Unit)
   fun shareImage(req: WxShareImage, callback: (Result<Boolean>) -> Unit)
+  fun weChatAuth(callback: (Result<String>) -> Unit)
 
   companion object {
     /** The codec used by WeChatOpenSdkApi. */
@@ -279,6 +280,24 @@ interface WeChatOpenSdkApi {
             val args = message as List<Any?>
             val reqArg = args[0] as WxShareImage
             api.shareImage(reqArg) { result: Result<Boolean> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.wechat_opensdk_flutter.WeChatOpenSdkApi.weChatAuth", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.weChatAuth() { result: Result<String> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

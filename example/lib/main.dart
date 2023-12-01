@@ -32,7 +32,8 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _wechatOpensdkFlutterPlugin.getPlatformVersion() ?? 'Unknown platform version';
+          await _wechatOpensdkFlutterPlugin.wetPlatformVersion() ??
+              'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }

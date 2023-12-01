@@ -18,7 +18,10 @@ class WxShareBaseModel {
   WxSceneType scene;
   String thumbImageUrl;
   WxShareBaseModel(
-      {required this.title, required this.content,required this.thumbImageUrl, required this.scene});
+      {required this.title,
+      required this.content,
+      required this.thumbImageUrl,
+      required this.scene});
 }
 
 class WxSdkOnResp {
@@ -33,17 +36,13 @@ class WxSdkOnResp {
 class WxShareWebPage {
   String pageUrl;
   WxShareBaseModel base;
-  WxShareWebPage(
-      {required this.pageUrl,
-      required this.base});
+  WxShareWebPage({required this.pageUrl, required this.base});
 }
 
 class WxShareImage {
   final Uint8List? imageData;
   WxShareBaseModel base;
-  WxShareImage(
-      {required this.imageData,
-      required this.base});
+  WxShareImage({required this.imageData, required this.base});
 }
 
 @HostApi()
@@ -59,10 +58,12 @@ abstract class WeChatOpenSdkApi {
 
   @async
   bool shareImage(WxShareImage req);
+
+  @async
+  String weChatAuth();
 }
 
 @FlutterApi()
- abstract class WxSdkOnRespApi {
-   void onResp(WxSdkOnResp resp);
- }
-
+abstract class WxSdkOnRespApi {
+  void onResp(WxSdkOnResp resp);
+}
