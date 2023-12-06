@@ -9,7 +9,7 @@
 #import <WechatOpenSDK/WechatAuthSDK.h>
 #import <WechatOpenSDK/WXApi.h>
 #import "WeChatOpenSdkApiImpl.h"
-#import "WecChatOpenSdkConstant.h"
+#import "WeChatOpenSdkConstant.h"
 #define KWeChatLoginCompletionCallBack @"kWeChatLoginCompletionCallBackk"
 
 typedef void (^completion_t)(NSString *_Nullable, FlutterError *_Nullable);
@@ -248,7 +248,7 @@ typedef void (^completion_t)(NSString *_Nullable, FlutterError *_Nullable);
 }
 
 - (FlutterError *_Nullable) authRet:(WeChatRetCode) code {
-    FlutterError *_Nullable error = [FlutterError errorWithCode:NSStringFromWeChatRetCode(code) message:nil details:nil];
+    FlutterError *_Nullable error = [FlutterError errorWithCode:[WeChatOpenSdkConstant NSStringFromWeChatRetCode:code] message:nil details:nil];
     return error;
 }
 
